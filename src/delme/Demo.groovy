@@ -1,6 +1,6 @@
-package killme.tst
+package delme
 
-class Test {
+class Demo {
 
 	static main(args) {
 		def vmm = com.sun.jdi.Bootstrap.virtualMachineManager();
