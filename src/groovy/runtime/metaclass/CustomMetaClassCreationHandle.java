@@ -2,18 +2,15 @@ package groovy.runtime.metaclass;
 
 import groovy.lang.MetaClass;
 import groovy.lang.MetaClassRegistry;
-import groovy.runtime.metaclass.com.sun.jdi.VirtualMachineManagerMetaClass;
-
-import com.sun.jdi.VirtualMachineManager;
+import x.mvmn.groovy.meta.jdi.JDIMetaclassesMapper;
 
 public class CustomMetaClassCreationHandle extends groovy.lang.MetaClassRegistry.MetaClassCreationHandle {
 
-	@SuppressWarnings("rawtypes")
-	protected MetaClass createNormalMetaClass(Class theClass, MetaClassRegistry registry) {
+	private static final JDIMetaclassesMapper JDI_METACLASSES_MAPPER = new JDIMetaclassesMapper();
+	
+	protected MetaClass createNormalMetaClass(@SuppressWarnings("rawtypes") Class theClass, MetaClassRegistry registry) {
 		MetaClass result = super.createNormalMetaClass(theClass, registry);
-		if (VirtualMachineManager.class.isAssignableFrom(theClass)) {
-			result = new VirtualMachineManagerMetaClass(result);
-		}
+		result = JDI_METACLASSES_MAPPER.applyMappings(result, theClass);
 		return result;
 	}
 }
