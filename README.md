@@ -16,6 +16,7 @@ Also additional level of convenience would be added to allow calls like vmManage
 The Solution
 ============
 The resulting syntax should allow things like these:
+
 	def vmm = com.sun.jdi.Bootstrap.virtualMachineManager(); // To show you vmm is instance of com.sun.jdi.VirtualMachineManager
 	vmm.connectors.each{ println it }; // List all connectors
 	vmm.connectors.all.each{ println it }; // Equivalent to previous line
