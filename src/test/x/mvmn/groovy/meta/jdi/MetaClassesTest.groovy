@@ -2,6 +2,7 @@ package x.mvmn.groovy.meta.jdi
 
 import x.mvmn.groovy.meta.jdi.assistants.impl.VirtualMachineManagerAssistant.VirtualMachineConnectors;
 
+import com.sun.jdi.ThreadReference;
 import com.sun.jdi.VirtualMachine;
 import com.sun.jdi.connect.AttachingConnector;
 import com.sun.jdi.connect.Connector;
@@ -73,9 +74,14 @@ class MetaClassesTest {
 			assert vm instanceof VirtualMachine;
 			println "Connected to 127.0.0.1:7896";
 			assert vm.allClasses instanceof List;
+			assert vm.classes == vm.allClasses;
 			assert vm.allThreads instanceof List;
+			assert vm.threads == vm.allThreads;
 			assert vm.canBeModified instanceof Boolean;
-			assert vm.mirrorOf("Test ABC").value().equals(vm.mirror("Test ABC").value());
+			assert vm.mirrorOf("Test ABC").value().equals(vm.mirror("Test ABC").value());			
+			assert vm.var("Test ABC").value().equals(vm.mirror("Test ABC").value());
+			def mainThread = vm.threadByName("main");
+			assert mainThread instanceof ThreadReference;
 			
 		} finally {
 			if(process!=null) {
