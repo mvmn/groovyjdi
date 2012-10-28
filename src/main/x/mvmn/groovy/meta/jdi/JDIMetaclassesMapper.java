@@ -1,26 +1,24 @@
 package x.mvmn.groovy.meta.jdi;
 
+import groovy.lang.MetaClass;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import x.mvmn.groovy.meta.AbstractAssistantMetaclassesMapper;
-import x.mvmn.groovy.meta.jdi.impl.VirtualMachineManagerAssistant;
+import x.mvmn.groovy.meta.AbstractMetaclassesMapper;
 
-import com.sun.jdi.VirtualMachineManager;
+public class JDIMetaclassesMapper extends AbstractMetaclassesMapper {
 
-public class JDIMetaclassesMapper extends AbstractAssistantMetaclassesMapper {
+	private static final Map<Class<?>, Class<? extends MetaClass>> MAPPINGS;
 
-	private static final Map<Class<?>, Class<?>> MAPPINGS;
-	
 	static {
-		Map<Class<?>, Class<?>> mappings = new HashMap<Class<?>, Class<?>>();
-		mappings.put(VirtualMachineManager.class, VirtualMachineManagerAssistant.class);
-		
+		Map<Class<?>, Class<? extends MetaClass>> mappings = new HashMap<Class<?>, Class<? extends MetaClass>>();
+
 		MAPPINGS = Collections.unmodifiableMap(mappings);
 	}
-	
-	public Map<Class<?>, Class<?>> getMappings() {
+
+	public Map<Class<?>, Class<? extends MetaClass>> getMappings() {
 		return MAPPINGS;
 	}
 

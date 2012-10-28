@@ -1,4 +1,4 @@
-package x.mvmn.groovy.meta.jdi.impl;
+package x.mvmn.groovy.meta.jdi.assistants.impl;
 
 import java.util.Collection;
 import java.util.Iterator;

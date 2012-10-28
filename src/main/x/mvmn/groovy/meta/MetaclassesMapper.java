@@ -1,12 +1,11 @@
 package x.mvmn.groovy.meta;
 
-import java.util.Map;
-
 import groovy.lang.MetaClass;
 
-public interface AssistantMetaclassesMapper {
-	
-	public Map<Class<?>, Class<?>> getMappings();
+import java.util.Map;
+
+public interface MetaclassesMapper {
+	public Map<Class<?>, Class<? extends MetaClass>> getMappings();
 
 	public MetaClass applyMappings(MetaClass normalMetaClass, Class<?> clazz);
 }

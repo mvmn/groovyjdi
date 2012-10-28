@@ -1,4 +1,4 @@
-package x.mvmn.groovy.meta
+package x.mvmn.groovy.meta.assistants
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
