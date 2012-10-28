@@ -11,7 +11,7 @@ abstract class AssistantDelegatingMetaClass extends groovy.lang.DelegatingMetaCl
 
 	protected abstract Class<?> getOriginalClass();
 	protected abstract Class<?> getAssistantClass();
-	
+
 	AssistantDelegatingMetaClass(MetaClass delegate) {
 		super(delegate);
 	}
@@ -20,9 +20,6 @@ abstract class AssistantDelegatingMetaClass extends groovy.lang.DelegatingMetaCl
 		// Access to any property "something" should be interpreted as a call to method "getSomething()"
 		String propertyCapitalized = property;
 		if(property!=null && property.length()>0) {
-			if("class".equals(property)) {
-				return super.getProperty(callObject, property);
-			}
 			propertyCapitalized = property.substring(0, 1).toUpperCase();
 			if(property.length()>1) {
 				propertyCapitalized+=property.substring(1);
@@ -32,12 +29,16 @@ abstract class AssistantDelegatingMetaClass extends groovy.lang.DelegatingMetaCl
 	}
 
 	public Object invokeMethod(Object callObject, String callMethodName, Object[] callArguments) {
-		if(getOriginalClass().isAssignableFrom(callObject.class)) {
-			Method wrappedMethod = getAssistantClass().getMethod(callMethodName, ClassesHelper.extractClasses(callArguments));
-			if(wrappedMethod!=null) {
-				Constructor<?> constructor = getAssistantClass().getConstructor(getOriginalClass());
-				Object wrapper = constructor.newInstance(callObject);
-				return wrappedMethod.invoke(wrapper, callArguments);
+		// Skip "getClass" calls.
+		// Otherwise callObject.getClass() call may again be intercepted here, causing endless loop.
+		if(!"getClass".equals(callMethodName)) {
+			if(getOriginalClass().isAssignableFrom(callObject.getClass())) {
+				Method wrappedMethod = getAssistantClass().getMethod(callMethodName, ClassesHelper.extractClasses(callArguments));
+				if(wrappedMethod!=null) {
+					Constructor<?> constructor = getAssistantClass().getConstructor(getOriginalClass());
+					Object wrapper = constructor.newInstance(callObject);
+					return wrappedMethod.invoke(wrapper, callArguments);
+				}
 			}
 		}
 		return super.invokeMethod(callObject, callMethodName, callArguments);
