@@ -14,8 +14,8 @@ import com.sun.jdi.connect.ListeningConnector;
 
 public class VirtualMachineManagerAssistant {
 
-	private VirtualMachineManager vmm = null;
-	private VirtualMachineConnectors vmConnectors = null;
+	private final VirtualMachineManager vmm;
+	private final VirtualMachineConnectors vmConnectors;
 
 	public VirtualMachineManagerAssistant(VirtualMachineManager vmm) {
 		this.vmm = vmm;
