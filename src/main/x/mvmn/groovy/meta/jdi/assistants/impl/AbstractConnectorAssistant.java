@@ -8,12 +8,12 @@ import com.sun.jdi.connect.Connector;
 import com.sun.jdi.connect.Connector.Argument;
 import com.sun.jdi.connect.Transport;
 
-public class ConnectorAssistant {
+public abstract class AbstractConnectorAssistant {
 
 	private final Connector connector;
 	private final ConnectorArgumentsWrapper connectorArgsWrapper;
 
-	public ConnectorAssistant(Connector connector) {
+	public AbstractConnectorAssistant(Connector connector) {
 		this.connector = connector;
 		connectorArgsWrapper = new ConnectorArgumentsWrapper(connector.defaultArguments());
 	}

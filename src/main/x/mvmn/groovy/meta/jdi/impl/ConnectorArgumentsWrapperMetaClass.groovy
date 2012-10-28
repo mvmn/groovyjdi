@@ -3,7 +3,7 @@ package x.mvmn.groovy.meta.jdi.impl;
 import groovy.lang.DelegatingMetaClass;
 import groovy.lang.MetaClass;
 import com.sun.jdi.connect.Connector;
-import x.mvmn.groovy.meta.jdi.assistants.impl.ConnectorAssistant.ConnectorArgumentsWrapper;
+import x.mvmn.groovy.meta.jdi.assistants.impl.AbstractConnectorAssistant.ConnectorArgumentsWrapper;
 
 class ConnectorArgumentsWrapperMetaClass extends DelegatingMetaClass {
 

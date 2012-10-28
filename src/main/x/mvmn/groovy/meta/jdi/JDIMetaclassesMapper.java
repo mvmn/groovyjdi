@@ -9,7 +9,7 @@ import java.util.Map;
 import com.sun.jdi.VirtualMachine;
 
 import x.mvmn.groovy.meta.AbstractMetaclassesMapper;
-import x.mvmn.groovy.meta.jdi.assistants.impl.ConnectorAssistant.ConnectorArgumentsWrapper;
+import x.mvmn.groovy.meta.jdi.assistants.impl.AbstractConnectorAssistant.ConnectorArgumentsWrapper;
 import x.mvmn.groovy.meta.jdi.impl.ConnectorArgumentsWrapperMetaClass;
 import x.mvmn.groovy.meta.jdi.impl.VirtualMachineMetaClass;
 
