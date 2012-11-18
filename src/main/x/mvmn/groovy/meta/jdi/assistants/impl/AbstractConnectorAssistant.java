@@ -11,11 +11,9 @@ import com.sun.jdi.connect.Transport;
 public abstract class AbstractConnectorAssistant {
 
 	private final Connector connector;
-	private final ConnectorArgumentsWrapper connectorArgsWrapper;
 
 	public AbstractConnectorAssistant(Connector connector) {
 		this.connector = connector;
-		connectorArgsWrapper = new ConnectorArgumentsWrapper(connector.defaultArguments());
 	}
 
 	public String getName() {
@@ -31,11 +29,11 @@ public abstract class AbstractConnectorAssistant {
 	}
 
 	public ConnectorArgumentsWrapper getDefaultArguments() {
-		return connectorArgsWrapper;
+		return new ConnectorArgumentsWrapper(connector.defaultArguments());
 	}
 	
 	public ConnectorArgumentsWrapper getNewArgs() {
-		return connectorArgsWrapper;
+		return new ConnectorArgumentsWrapper(connector.defaultArguments());
 	}
 
 	public static class ConnectorArgumentsWrapper implements Map<String, Connector.Argument> {
