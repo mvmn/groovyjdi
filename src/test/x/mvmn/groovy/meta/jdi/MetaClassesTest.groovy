@@ -20,7 +20,7 @@ class MetaClassesTest {
 			assert vmm.connectors instanceof Collection;
 			assert vmm.connectors.iterator().next() instanceof Connector;
 			assert vmm.connectors.all instanceof Collection;
-			assert vmm.connectors.iterator().next() instanceof Connector;
+			assert vmm.connectors.all.iterator().next() instanceof Connector;
 			assert vmm.connectors.default instanceof Connector;
 			assert vmm.connectors.listening instanceof Collection;
 			assert vmm.connectors.listening.iterator().next() instanceof ListeningConnector;
