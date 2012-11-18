@@ -1,0 +1,32 @@
+Functionality that JDI metaclasses add:
+- Translation of property access to getProperty/setProperty method calls - this is done for many JDI API classes.
+Example: ((com.sun.jdi.VirtualMachineManager)vmm).connectors === vmm.getConnectors()
+- Translating most used .getSomething() method calls to JDI API .something() calls.
+Example: ((com.sun.jdi.connect.Connector)connector).name === connector.name(); connector.getName() === connector.name();
+- Addition of convenience methods. This will be demonstrated on per-class basis.
+
+# com.sun.jdi.VirtualMachineManager
+- vmm.connectors 
+Returns special Collection object that contains all connectors. 
+This object also has methods for obtaining all, listening, attaching and launching connectors, and also default connector. 
+Examples:
+vmm.connectors; vmm.getConnectors() // Returns Collection of all connectors that has additional special methods
+vmm.connectors.all; vmm.getConnectors().getAll() // Returns Collection of all connectors
+vmm.connectors.listening // Returns Collection of all Listening connectors
+vmm.connectors.attaching // Returns Collection of all Attaching connectors
+vmm.connectors.launching // Returns Collection of all Launching connectors
+vmm.connectors.default; vmm.connectors.getDefault(); vmm.defaultConnector; vmm.getDefaultConnector() 
+// Returns default connector of VirtualMachineManager
+vmm.attach(String host); vmm.attach(String host, String port); vmm.attach(String host, Integer port); 
+// Convenience method that tries to get Attaching connector with Transport "dt_socket", 
+// set this connector's arguments "hostname" and "port" to specified values, and perform attaching, 
+// returning instance of com.sun.jdi.VirtualMachine   
+
+# com.sun.jdi.connect.Connector
+conn.getName()/conn.getDescription()/conn.getTransport() === conn.name()/conn.description()/conn.transport();
+conn.defaultArguments;conn.getDefaultArguments();conn.newArgs; 
+// Returns new instance of special Map of String to Connector.Argument wrapping result of connector.defaultArguments() call
+connArgs = conn.newArgs;
+connArgs.hostname = "localhost"; // Sets connector argument "hostname" value to "localhost"
+
+# com.sun.jdi.VirtualMachine
