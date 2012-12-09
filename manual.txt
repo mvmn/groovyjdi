@@ -9,6 +9,7 @@ Example: ((com.sun.jdi.connect.Connector)connector).name === connector.name(); c
 - vmm.connectors 
 Returns special Collection object that contains all connectors. 
 This object also has methods for obtaining all, listening, attaching and launching connectors, and also default connector. 
+
 Examples:
 vmm.connectors; vmm.getConnectors() // Returns Collection of all connectors that has additional special methods
 vmm.connectors.all; vmm.getConnectors().getAll() // Returns Collection of all connectors
@@ -23,10 +24,34 @@ vmm.attach(String host); vmm.attach(String host, String port); vmm.attach(String
 // returning instance of com.sun.jdi.VirtualMachine   
 
 # com.sun.jdi.connect.Connector
-conn.getName()/conn.getDescription()/conn.getTransport() === conn.name()/conn.description()/conn.transport();
+// conn.getName()/conn.getDescription()/conn.getTransport() translated to conn.name()/conn.description()/conn.transport();
+
 conn.defaultArguments;conn.getDefaultArguments();conn.newArgs; 
 // Returns new instance of special Map of String to Connector.Argument wrapping result of connector.defaultArguments() call
+
 connArgs = conn.newArgs;
 connArgs.hostname = "localhost"; // Sets connector argument "hostname" value to "localhost"
 
+# com.sun.jdi.connect.Connector.(Boolean/Integer/String/Selected)Argument
+// Methods name()/label()/description()/value()/mustSpecify() translated as getName() etc.
+// getMandatory() call is also translated to mustSpecify()
+someConnectorArg.name // Returns name
+someConnectorArg.value // Returns String value
+
+someBooleanConnectorArg.booleanValue // Returns boolean value
+
+someIntegerConnectorArg.intValue // Returns int value
+someIntegerConnectorArg.maxValue // Returns int maximum
+someIntegerConnectorArg.minValue // Returns int minimum
+
+someSelectedConnectorArg.choices // Returns List<String> of available choices - i.e. translated to .choices() call
+
 # com.sun.jdi.VirtualMachine
+// all .getXyz() calls translated as xyz() calls when necessary
+// methods .mirror(...)/.var(...) translated to .mirrorOf(...)
+// methods .void()/varVoid() translated to .mirrorOfVoid();
+vm.classes == vm.classes() == vm.allClasses;
+vm.threads == vm.threads() == vm.allThreads;
+
+vm.threadByName("name") == vm.getThreadByName("name"); 
+// .getThreadByName(String name) will call .allThreads() and will try to find among the results a thread with given name
