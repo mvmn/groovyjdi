@@ -80,6 +80,8 @@ class MetaClassesTest {
 			assert vm.canBeModified instanceof Boolean;
 			assert vm.mirrorOf("Test ABC").value().equals(vm.mirror("Test ABC").value());			
 			assert vm.var("Test ABC").value().equals(vm.mirror("Test ABC").value());
+			assert vm.void().equals(vm.mirrorOfVoid());
+			assert vm.varVoid().equals(vm.mirrorOfVoid());
 			def mainThread = vm.threadByName("main");
 			assert mainThread instanceof ThreadReference;
 			

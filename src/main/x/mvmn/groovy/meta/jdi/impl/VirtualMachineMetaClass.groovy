@@ -56,6 +56,9 @@ class VirtualMachineMetaClass extends AbstractPropertyConcealingDelegatingMetaCl
 		if(callMethodName.equals("mirror") || callMethodName.equals("var") && callArguments!=null && callArguments.size()==1) {
 			callMethodName = "mirrorOf";
 		}
+		if((callMethodName.equals("void") || callMethodName.equals("varVoid")) && (callArguments == null || callArguments.size()==0)) {
+			callMethodName = "mirrorOfVoid";
+		}
 		return super.superInvokeMethod(callObject, callMethodName, callArguments);
 	}
 }

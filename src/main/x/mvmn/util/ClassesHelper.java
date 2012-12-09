@@ -19,7 +19,10 @@ public class ClassesHelper {
 
 	public static Class<?>[] extractClasses(Object[] args) {
 		Class<?>[] result;
-		if (args == null || args.length < 1) {
+		if (args == null) {
+			return null;
+		}
+		if(args.length < 1) {
 			result = new Class[0];
 		} else {
 			List<Class<?>> classes = CollectionsHelper.extract(args, CLASS_EXTRACTOR);
